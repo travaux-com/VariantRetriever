@@ -1,0 +1,33 @@
+{
+    "name": "scullwm/variantretriever",
+    "description": "",
+    "homepage": "https://github.com/scullwm/variantretriever",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas P",
+            "email": "thomas@pepperreport.io"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "pestphp/pest": "^0.2.4",
+        "friendsofphp/php-cs-fixer": "^2.16"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": { "Scullwm\\VariantRetriever\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Scullwm\\VariantRetriever\\Tests\\": "tests/"
+        }
+    }
+}
