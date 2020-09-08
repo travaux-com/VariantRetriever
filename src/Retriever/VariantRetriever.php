@@ -8,30 +8,45 @@ use Scullwm\VariantRetriever\ValueObject\Variant;
 
 class VariantRetriever implements VariantRetrieverInterface
 {
-    private Experiment $experiment;
+    private array $experiments;
 
-    private $allocations = [];
+    private array $allocations = [];
 
-    public function __construct(Experiment $experiment, Variant ...$variants)
+    public function addExperiment(Experiment $experiment): self
     {
+        $variants = $experiment->getVariants();
         foreach ($variants as $variant) {
             $this->allocations = array_merge(array_fill(0, $variant->getRolloutPercentage(), $variant), $this->allocations);
         }
 
-        if (count($this->allocations) != 100) {
-            throw new LogicalException('Differents variants do not reach 100% got ' . count($this->allocations));
+        $this->experiments[$experiment->getName()] = $experiment;
+
+        return $this;
+    }
+
+    public function getVariantForExperiment(Experiment $experiment, string $userIdentifier): Variant
+    {
+        if (!isset($this->experiments[$experiment->getName()])) {
+            throw new LogicalException(sprintf('Experiment %s do not exist', $experiment->getName()));
         }
 
-        $this->experiment = $experiment;
+        $variants = $this->experiments[$experiment->getName()]->getVariants();
+        $this->createVariantAllocation($this->experiments[$experiment->getName()]);
+
+        return $this->allocations[$experiment->getName()][$this->getUserIdentifierAffectation($experiment->getName(), $userIdentifier)];
     }
 
-    public function getVariant(string $userIdentifier): Variant
+    private function createVariantAllocation(Experiment $experiment)
     {
-        return $this->allocations[$this->getUserIdentifierAffectation($userIdentifier)];
+        $this->allocations[$experiment->getName()] = [];
+        $variants = $experiment->getVariants();
+        foreach ($variants as $variant) {
+            $this->allocations[$experiment->getName()] = array_merge($this->allocations[$experiment->getName()], array_fill(0, $variant->getRolloutPercentage(), $variant));
+        }
     }
 
-    private function getUserIdentifierAffectation(string $userIdentifier): int
+    private function getUserIdentifierAffectation(string $experimentName, string $userIdentifier): int
     {
-        return (int)substr(crc32((string)$this->experiment.$userIdentifier), -2, 2);
+        return (int)substr(crc32((string)$experimentName.$userIdentifier), -2, 2);
     }
 }

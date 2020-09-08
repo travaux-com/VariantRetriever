@@ -11,7 +11,7 @@ test('integer following list should have a correct percentage rollout', function
     $results = [];
     foreach (range(1, 500) as $value) {
         // $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant((string)$value);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), (string)$value);
     }
 
     $this->assertCount(500, $results);
@@ -31,7 +31,7 @@ test('Random numbers should have a correct percentage rollout', function () {
     $results = [];
     foreach (range(1, 1000) as $value) {
         $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant((string)$randomIdentifier);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), (string)$randomIdentifier);
     }
 
     $this->assertCount(1000, $results);
@@ -50,11 +50,11 @@ test('Random strings should have a correct percentage rollout', function () {
     $results = [];
     foreach (range(1, 200) as $value) {
         $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant(md5($randomIdentifier));
-        $results[] = $variantRetriever->getVariant(md5(uniqid()));
-        $results[] = $variantRetriever->getVariant(uniqid());
-        $results[] = $variantRetriever->getVariant(uniqid().$value);
-        $results[] = $variantRetriever->getVariant(sha1(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($randomIdentifier));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid());
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid().$value);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), sha1(uniqid()));
     }
 
     $this->assertCount(1000, $results);
@@ -72,11 +72,11 @@ test('Huge volume should have a very correct percentage rollout', function () {
     $results = [];
     foreach (range(1, 100000) as $value) {
         $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant(md5($randomIdentifier));
-        $results[] = $variantRetriever->getVariant(md5(uniqid()));
-        $results[] = $variantRetriever->getVariant(uniqid());
-        $results[] = $variantRetriever->getVariant(uniqid().$value);
-        $results[] = $variantRetriever->getVariant(sha1(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($randomIdentifier));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid());
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid().$value);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), sha1(uniqid()));
     }
 
     $this->assertCount(500000, $results);
@@ -89,7 +89,8 @@ test('Huge volume should have a very correct percentage rollout', function () {
 });
 
 test('Multi variant should have a correct percentage rollout', function () {
-    $variantRetriever = new VariantRetriever(new Experiment('my-ab-test'), ...[
+    $variantRetriever = new VariantRetriever();
+    $variantRetriever->addExperiment(new Experiment('my-ab-test', ...[
         new Variant('control1', 10),
         new Variant('variant2', 10),
         new Variant('variant3', 10),
@@ -100,16 +101,16 @@ test('Multi variant should have a correct percentage rollout', function () {
         new Variant('variant8', 10),
         new Variant('variant9', 10),
         new Variant('variant0', 10),
-    ]);
+    ]));
 
     $results = [];
     foreach (range(1, 100000) as $value) {
         $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant(md5($randomIdentifier));
-        $results[] = $variantRetriever->getVariant(md5(uniqid()));
-        $results[] = $variantRetriever->getVariant(uniqid());
-        $results[] = $variantRetriever->getVariant(uniqid().$value);
-        $results[] = $variantRetriever->getVariant(sha1(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($randomIdentifier));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid());
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid().$value);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), sha1(uniqid()));
     }
 
     $this->assertCount(500000, $results);
@@ -122,20 +123,21 @@ test('Multi variant should have a correct percentage rollout', function () {
 
 
 test('Multi variant with different rollout should have a correct percentage rollout', function () {
-    $variantRetriever = new VariantRetriever(new Experiment('my-ab-test'), ...[
+    $variantRetriever = new VariantRetriever();
+    $variantRetriever->addExperiment(new Experiment('my-ab-test', ...[
         new Variant('control1', 10),
         new Variant('variant2', 10),
         new Variant('variant3', 80),
-    ]);
+    ]));
 
     $results = [];
     foreach (range(1, 100000) as $value) {
         $randomIdentifier = rand(1, 3000000);
-        $results[] = $variantRetriever->getVariant(md5($randomIdentifier));
-        $results[] = $variantRetriever->getVariant(md5(uniqid()));
-        $results[] = $variantRetriever->getVariant(uniqid());
-        $results[] = $variantRetriever->getVariant(uniqid().$value);
-        $results[] = $variantRetriever->getVariant(sha1(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($randomIdentifier));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5(uniqid()));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid());
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), uniqid().$value);
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), sha1(uniqid()));
     }
 
     $this->assertCount(500000, $results);
@@ -155,7 +157,7 @@ test('Generate rollout fast', function () {
 
     $start = microtime(true);
     foreach (range(1, 100000) as $value) {
-        $results[] = $variantRetriever->getVariant(md5($value));
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($value));
     }
     $timeElapsedSecs = microtime(true) - $start;
 
