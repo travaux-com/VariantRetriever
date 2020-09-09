@@ -12,20 +12,11 @@ VariantRetriever is a minimalist package to affect a variant to an identifiable 
 First of all, you need to define an Experiment with a name. And it variants. Variant require 2 arguments, a name and a rollout percentage (50% by default).
 Then create a variant retriever with this experiment and variants, and ask it to retrieve a variant for a ressource (in the following code, it's for a user uuid).
 
-```php
-$experiment = new Experiment('My-experiment-name');
-$variants = [
-    new Variant('control'),
-    new Variant('variant')
-];
-$variantRetriever = new VariantRetriever($experiment, ...$variants);
-$affectedVariant = $variantRetriever->getVariant('77d8a1d5-97ba-42db-a4a7-3b9562f0ff22');
-```
-
 
 ```php
 $variantRetriever = new VariantRetriever();
-$variantRetriever->addExperiment(new Experiment('my-ab-test', ...[new Variant('control1', 50), new Variant('variant2', 50)]));
+$experiment = new Experiment('my-ab-test', ...[new Variant('control1', 50), new Variant('variant2', 50)]);
+$variantRetriever->addExperiment($experiment);
 
 $affectedVariant = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), '77d8a1d5-97ba-42db-a4a7-3b9562f0ff22');
 
@@ -50,7 +41,7 @@ And this will give you detailed information about code coverage.
 
 ## What about speed
 
-VariantRetriever is fast. In our test, we ensure that the retriever is able to get 100 000 variant for randomly generate differents identifiables in less than 1 second.
+VariantRetriever is fast. In our test, we ensure that the retriever is able to get 50 000 variant for randomly generate differents identifiables in less than 1 second.
 Local dev machine can run 500 000 run in less than a second.
 
 ## What about randomless
