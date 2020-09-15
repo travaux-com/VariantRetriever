@@ -1,6 +1,6 @@
 <?php
 
-namespace Scullwm\VariantRetriever\Exception;
+namespace Travaux\VariantRetriever\Exception;
 
 use LogicException;
 

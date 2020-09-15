@@ -1,9 +1,9 @@
 <?php
 
-use Scullwm\VariantRetriever\Exception\LogicalException;
-use Scullwm\VariantRetriever\Retriever\VariantRetriever;
-use Scullwm\VariantRetriever\ValueObject\Experiment;
-use Scullwm\VariantRetriever\ValueObject\Variant;
+use Travaux\VariantRetriever\Exception\LogicalException;
+use Travaux\VariantRetriever\Retriever\VariantRetriever;
+use Travaux\VariantRetriever\ValueObject\Experiment;
+use Travaux\VariantRetriever\ValueObject\Variant;
 
 test('integer following list should have a correct percentage rollout', function () {
     $variantRetriever = generateVariantRetriever();

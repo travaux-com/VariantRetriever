@@ -1,13 +1,13 @@
 {
-    "name": "scullwm/variantretriever",
+    "name": "travaux-com/variantretriever",
     "description": "",
-    "homepage": "https://github.com/scullwm/variantretriever",
+    "homepage": "https://github.com/travaux-com/variantretriever",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Thomas P",
-            "email": "thomas@pepperreport.io"
+            "email": "thomas.perez@travaux.com"
         }
     ],
     "require": {
@@ -23,11 +23,11 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": { "Scullwm\\VariantRetriever\\": "src/" }
+        "psr-4": { "Travaux\\VariantRetriever\\": "src/" }
     },
     "autoload-dev": {
         "psr-4": {
-            "Scullwm\\VariantRetriever\\Tests\\": "tests/"
+            "Travaux\\VariantRetriever\\Tests\\": "tests/"
         }
     }
 }

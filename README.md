@@ -15,12 +15,12 @@ Then create a variant retriever with this experiment and variants, and ask it to
 
 ```php
 $variantRetriever = new VariantRetriever();
-$experiment = new Experiment('my-ab-test', ...[new Variant('control1', 50), new Variant('variant2', 50)]);
+$experiment = new Experiment('my-ab-test', ...[new Variant('control1'), new Variant('variant2')]);
 $variantRetriever->addExperiment($experiment);
 
 $affectedVariant = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), '77d8a1d5-97ba-42db-a4a7-3b9562f0ff22');
 
-var_dump((string)$affectedVariant); // string(7) "variant"
+var_dump((string) $affectedVariant); // string(7) "variant2"
 ```
 
 ### Running the Test Suite

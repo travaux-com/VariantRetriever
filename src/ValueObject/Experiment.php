@@ -1,9 +1,9 @@
 <?php
 
-namespace Scullwm\VariantRetriever\ValueObject;
+namespace Travaux\VariantRetriever\ValueObject;
 
-use Scullwm\VariantRetriever\Exception\LogicalException;
-use Scullwm\VariantRetriever\ValueObject\Variant;
+use Travaux\VariantRetriever\Exception\LogicalException;
+use Travaux\VariantRetriever\ValueObject\Variant;
 
 final class Experiment
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Scullwm\VariantRetriever\ValueObject;
+namespace Travaux\VariantRetriever\ValueObject;
 
 class ABTestExperiment extends Experiment
 {

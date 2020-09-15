@@ -1,10 +1,10 @@
 <?php
 
-namespace Scullwm\VariantRetriever\Retriever;
+namespace Travaux\VariantRetriever\Retriever;
 
-use Scullwm\VariantRetriever\Exception\LogicalException;
-use Scullwm\VariantRetriever\ValueObject\Experiment;
-use Scullwm\VariantRetriever\ValueObject\Variant;
+use Travaux\VariantRetriever\Exception\LogicalException;
+use Travaux\VariantRetriever\ValueObject\Experiment;
+use Travaux\VariantRetriever\ValueObject\Variant;
 
 class VariantRetriever implements VariantRetrieverInterface
 {
