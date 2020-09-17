@@ -5,6 +5,7 @@ namespace Travaux\VariantRetriever\ValueObject;
 class Variant
 {
     private string $name;
+
     private int $rolloutPercentage;
 
     public function __construct(string $name, int $rolloutPercentage = 50)

@@ -36,7 +36,7 @@ class VariantRetriever implements VariantRetrieverInterface
         return $this->allocations[$experiment->getName()][$this->getUserIdentifierAffectation($experiment->getName(), $userIdentifier)];
     }
 
-    private function createVariantAllocation(Experiment $experiment)
+    private function createVariantAllocation(Experiment $experiment): void
     {
         $this->allocations[$experiment->getName()] = [];
         $variants = $experiment->getVariants();

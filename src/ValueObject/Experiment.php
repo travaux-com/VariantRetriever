@@ -5,9 +5,10 @@ namespace Travaux\VariantRetriever\ValueObject;
 use Travaux\VariantRetriever\Exception\LogicalException;
 use Travaux\VariantRetriever\ValueObject\Variant;
 
-final class Experiment
+class Experiment
 {
     private string $name;
+
     private array $variants;
 
     public function __construct(string $name, Variant ...$variants)
@@ -18,7 +19,7 @@ final class Experiment
                 $totalPercentage += $variant->getRolloutPercentage();
             }
             if ($totalPercentage !== 100) {
-                throw new LogicalException('Differents variants do not reach 100% got ' . $totalPercentage);
+                throw new LogicalException(sprintf('Differents variants do not reach 100%% got %d', $totalPercentage));
             }
         }
 
