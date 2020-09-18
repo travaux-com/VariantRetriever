@@ -156,7 +156,7 @@ test('Generate rollout fast', function () {
     $results = [];
 
     $start = microtime(true);
-    foreach (range(1, 50000) as $value) {
+    foreach (range(1, 10000) as $value) {
         $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), md5($value));
     }
     $timeElapsedSecs = microtime(true) - $start;
