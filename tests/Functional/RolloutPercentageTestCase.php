@@ -23,7 +23,21 @@ test('integer following list should have a correct percentage rollout', function
     $this->assertGreaterThanOrEqual(240, $rollout['variant']); // 48
 });
 
+test('small list should have a correct percentage rollout', function () {
+    $variantRetriever = generateVariantRetriever();
 
+    $results = [];
+    foreach (range(1, 100) as $value) {
+        $results[] = $variantRetriever->getVariantForExperiment(new Experiment('my-ab-test'), (string)$value);
+    }
+
+    $this->assertCount(100, $results);
+
+    $rollout = array_count_values(readRollout($results));
+
+    $this->assertGreaterThanOrEqual(40, $rollout['control']); // 40
+    $this->assertGreaterThanOrEqual(40, $rollout['variant']); // 40
+});
 
 test('Random numbers should have a correct percentage rollout', function () {
     $variantRetriever = generateVariantRetriever();
