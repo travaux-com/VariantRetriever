@@ -5,11 +5,11 @@
 </p>
 <br>
 
-VariantRetriever is a minimalist package to affect a variant to an identifiable ressource during an experiment. It's fast, database free and it ensure you to always retrieve the same variant for your identifiable ressource.
+VariantRetriever is a minimalist package to affect a variant to an identifiable ressource during an experiment. It's fast, database free and it ensures you to always retrieve the same variant for your identifiable ressource.
 
 ## Getting Started
 
-First of all, you need to define an Experiment with a name. And it variants. Variant require 2 arguments, a name and a rollout percentage (50% by default).
+First of all, you need to define an Experiment with a name and it variants. Variant requires 2 arguments, a name and a rollout percentage (50% by default).
 Then create a variant retriever with this experiment and variants, and ask it to retrieve a variant for a ressource (in the following code, it's for a user uuid).
 
 
@@ -41,8 +41,8 @@ And this will give you detailed information about code coverage.
 
 ## What about speed
 
-VariantRetriever is fast. In our test, we ensure that the retriever is able to get 50 000 variant for randomly generate differents identifiables in less than 1 second.
-Local dev machine can run 500 000 run in less than a second.
+VariantRetriever is fast. In our test, we ensure that the retriever is able to get 50 000 variants to randomly generate different identifiables in less than 1 second.
+Local dev machine can run 500 000 runs in less than a second.
 
 ## What about randomless
 
