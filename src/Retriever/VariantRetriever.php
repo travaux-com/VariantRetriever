@@ -14,11 +14,6 @@ class VariantRetriever implements VariantRetrieverInterface
 
     public function addExperiment(Experiment $experiment): self
     {
-        $variants = $experiment->getVariants();
-        foreach ($variants as $variant) {
-            $this->allocations = array_merge(array_fill(0, $variant->getRolloutPercentage(), $variant), $this->allocations);
-        }
-
         $this->experiments[$experiment->getName()] = $experiment;
 
         return $this;
