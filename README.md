@@ -5,7 +5,8 @@
 </p>
 <br>
 
-VariantRetriever is a minimalist package to affect a variant to an identifiable ressource during an experiment. It's fast, database free and it ensures you to always retrieve the same variant for your identifiable ressource.
+VariantRetriever is a minimalist package for feature flagging. It's fast, database free and it ensures you to always retrieve the same variant for your identifiable ressource.
+
 
 ## Getting Started
 
