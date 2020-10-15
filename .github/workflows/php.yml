@@ -18,7 +18,7 @@ jobs:
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer update --prefer-dist --no-progress
 
     - name: Run test suite
       run: ./vendor/bin/pest
