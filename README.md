@@ -5,13 +5,13 @@
 </p>
 <br>
 
-VariantRetriever is a minimalist package for feature flagging. It's fast, database free and it ensures you to always retrieve the same variant for your identifiable ressource.
+VariantRetriever is a minimalist package for feature flagging. It's fast, database free and idempotent library to choose over a set of variants.
 
 
 ## Getting Started
 
 First of all, you need to define an Experiment with a name and it variants. Variant requires 2 arguments, a name and a rollout percentage (50% by default).
-Then create a variant retriever with this experiment and variants, and ask it to retrieve a variant for a ressource (in the following code, it's for a user uuid).
+Then create a variant retriever with this experiment and variants, and ask it to retrieve a variant for a resource (in the following code, it's for a user uuid).
 
 
 ```php
