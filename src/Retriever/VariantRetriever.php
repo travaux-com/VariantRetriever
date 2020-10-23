@@ -36,7 +36,7 @@ class VariantRetriever implements VariantRetrieverInterface
         $this->allocations[$experiment->getName()] = [];
         $variants = $experiment->getVariants();
         foreach ($variants as $variant) {
-            $this->allocations[$experiment->getName()] = array_merge($this->allocations[$experiment->getName()], array_fill(0, $variant->getRolloutPercentage(), $variant));
+            $this->allocations[$experiment->getName()] = array_merge($this->allocations[$experiment->getName()], array_fill(0, $variant->getRollout(), $variant));
         }
     }
 
