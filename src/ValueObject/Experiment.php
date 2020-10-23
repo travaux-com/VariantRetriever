@@ -16,7 +16,7 @@ class Experiment
         if (!empty($variants)) {
             $totalPercentage = 0;
             foreach ($variants as $variant) {
-                $totalPercentage += $variant->getRolloutPercentage();
+                $totalPercentage += $variant->getRollout();
             }
             if ($totalPercentage !== 100) {
                 throw new LogicalException(sprintf('Differents variants do not reach 100%% got %d', $totalPercentage));

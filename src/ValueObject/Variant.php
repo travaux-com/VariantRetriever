@@ -6,12 +6,12 @@ class Variant
 {
     private string $name;
 
-    private int $rolloutPercentage;
+    private int $rollout;
 
-    public function __construct(string $name, int $rolloutPercentage = 50)
+    public function __construct(string $name, int $rollout = 50)
     {
         $this->name = $name;
-        $this->rolloutPercentage = $rolloutPercentage;
+        $this->rollout = $rollout;
     }
 
     public function getName(): string
@@ -19,9 +19,9 @@ class Variant
         return $this->name;
     }
 
-    public function getRolloutPercentage(): int
+    public function getRollout(): int
     {
-        return $this->rolloutPercentage;
+        return $this->rollout;
     }
 
     public function toString(): string
