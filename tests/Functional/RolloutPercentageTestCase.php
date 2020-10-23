@@ -163,11 +163,3 @@ test('Generate rollout fast', function () {
 
     $this->assertLessThan(1, $timeElapsedSecs);
 });
-
-
-function readRollout(array $results)
-{
-    return array_map(function ($d) {
-        return (string)$d;
-    }, $results);
-}
