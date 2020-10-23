@@ -5,8 +5,6 @@ use Travaux\VariantRetriever\Retriever\VariantRetriever;
 use Travaux\VariantRetriever\ValueObject\Experiment;
 use Travaux\VariantRetriever\ValueObject\Variant;
 
-const DEFAULT_EXPERIMENT_NAME = 'my-ab-test';
-
 test('variation list that dont match the 100% should throw exception', function () {
     new VariantRetriever(new Experiment(DEFAULT_EXPERIMENT_NAME, ...[new Variant('control'), new Variant('variant', 30)]));
 })->throws(LogicalException::class);
@@ -45,10 +43,3 @@ test('an identifier can have different variant on different experiment', functio
     $variantRetriever = generateVariantRetriever('my-other-ab-test');
     $this->assertEquals('variant', (string)$variantRetriever->getVariantForExperiment(new Experiment('my-other-ab-test'), $identifier));
 });
-
-
-function generateVariantRetriever($name = DEFAULT_EXPERIMENT_NAME)
-{
-    $variantRetriever = new VariantRetriever();
-    return $variantRetriever->addExperiment(new Experiment($name, ...[new Variant('control'), new Variant('variant')]));
-}
