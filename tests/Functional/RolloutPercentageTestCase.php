@@ -51,9 +51,9 @@ test('Random numbers should have a correct percentage rollout', function () {
 
     $rollout = array_count_values(readRollout($results));
 
-    // 3% diff is allowed for 1000 query
-    $this->assertGreaterThanOrEqual(465, $rollout['control']); // 47
-    $this->assertGreaterThanOrEqual(465, $rollout['variant']); // 47
+    // 5% diff is allowed for 1000 query
+    $this->assertGreaterThanOrEqual(450, $rollout['control']); // 45
+    $this->assertGreaterThanOrEqual(450, $rollout['variant']); // 45
 });
 
 
@@ -74,9 +74,9 @@ test('Random strings should have a correct percentage rollout', function () {
 
     $rollout = array_count_values(readRollout($results));
 
-    // 3% diff is allowed for 1000 query
-    $this->assertGreaterThanOrEqual(465, $rollout['control']); // 47
-    $this->assertGreaterThanOrEqual(465, $rollout['variant']); // 47
+    // 5% diff is allowed for 1000 query
+    $this->assertGreaterThanOrEqual(450, $rollout['control']); // 45
+    $this->assertGreaterThanOrEqual(450, $rollout['variant']); // 45
 });
 
 test('Huge volume should have a very correct percentage rollout', function () {
@@ -96,9 +96,9 @@ test('Huge volume should have a very correct percentage rollout', function () {
 
     $rollout = array_count_values(readRollout($results));
 
-    // 3% diff is allowed for 1000 query
-    $this->assertGreaterThanOrEqual(249350, $rollout['control']); // 49.87
-    $this->assertGreaterThanOrEqual(249350, $rollout['variant']); // 49.87
+    // 2% diff is allowed for 1000 query
+    $this->assertGreaterThanOrEqual(245000, $rollout['control']); // 49.00
+    $this->assertGreaterThanOrEqual(245000, $rollout['variant']); // 49.00
 });
 
 test('Multi variant should have a correct percentage rollout', function () {
@@ -130,8 +130,8 @@ test('Multi variant should have a correct percentage rollout', function () {
 
     $rollout = array_count_values(readRollout($results));
 
-    $this->assertGreaterThanOrEqual(49400, $rollout['control1']); // 9.88
-    $this->assertGreaterThanOrEqual(49400, $rollout['variant2']); // 9.88
+    $this->assertGreaterThanOrEqual(49000, $rollout['control1']); // 9.80
+    $this->assertGreaterThanOrEqual(49000, $rollout['variant2']); // 9.80
 });
 
 
@@ -159,7 +159,7 @@ test('Multi variant with different rollout should have a correct percentage roll
 
     $this->assertGreaterThanOrEqual(49400, $rollout['control1']); // 9.88
     $this->assertGreaterThanOrEqual(49400, $rollout['variant2']); // 9.88
-    $this->assertGreaterThanOrEqual(399600, $rollout['variant3']); // 79.92
+    $this->assertGreaterThanOrEqual(399000, $rollout['variant3']); // 79.80
 });
 
 
