@@ -13,8 +13,13 @@ class Experiment
     public function __construct(string $name, Variant ...$variants)
     {
         if (!empty($variants)) {
+            $variantNames = [];
             $totalPercentage = 0;
             foreach ($variants as $variant) {
+                if (isset($variantNames[$variant->getName()])) {
+                    throw new LogicalException(sprintf('Variant with same name "%s" already added', $variant->getName()));
+                }
+                $variantNames[$variant->getName()] = true;
                 $totalPercentage += $variant->getRollout();
             }
             if ($totalPercentage !== 100) {
