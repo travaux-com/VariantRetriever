@@ -3,7 +3,6 @@
 namespace Travaux\VariantRetriever\ValueObject;
 
 use Travaux\VariantRetriever\Exception\LogicalException;
-use Travaux\VariantRetriever\ValueObject\Variant;
 
 class Experiment
 {

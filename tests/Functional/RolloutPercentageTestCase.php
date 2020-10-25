@@ -1,6 +1,5 @@
 <?php
 
-use Travaux\VariantRetriever\Exception\LogicalException;
 use Travaux\VariantRetriever\Retriever\VariantRetriever;
 use Travaux\VariantRetriever\ValueObject\Experiment;
 use Travaux\VariantRetriever\ValueObject\Variant;
