@@ -43,3 +43,13 @@ test('an identifier can have different variant on different experiment', functio
     $variantRetriever = generateVariantRetriever('my-other-ab-test');
     $this->assertEquals('variant', (string)$variantRetriever->getVariantForExperiment(new Experiment('my-other-ab-test'), $identifier));
 });
+
+test('differents variants with same name should throw exception', function () {
+    new VariantRetriever(new Experiment(DEFAULT_EXPERIMENT_NAME, ...[
+        new Variant('control'),
+        new Variant('variant1', 20),
+        new Variant('control', 20),
+        new Variant('variant1', 10),
+    ]));
+})->throws(LogicalException::class, 'Variant with same name "control" already added');
+
