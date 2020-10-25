@@ -42,6 +42,6 @@ class VariantRetriever implements VariantRetrieverInterface
 
     private function getUserIdentifierAffectation(string $experimentName, string $userIdentifier): int
     {
-        return (int)substr(crc32((string)$experimentName.$userIdentifier), -2, 2);
+        return (int)substr((string)crc32((string)$experimentName . $userIdentifier), -2, 2);
     }
 }
