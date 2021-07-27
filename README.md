@@ -45,7 +45,7 @@ And this will give you detailed information about code coverage.
 VariantRetriever is fast. In our test, we ensure that the retriever is able to get 50 000 variants to randomly generate different identifiables in less than 1 second.
 Local dev machine can run 500 000 runs in less than a second.
 
-## What about randomless
+## What about randomness
 
 
 | Rows | Rollout | Rollout | Max Rollout difference |
