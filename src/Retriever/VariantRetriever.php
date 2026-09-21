@@ -25,8 +25,12 @@ class VariantRetriever implements VariantRetrieverInterface
             throw new LogicalException(sprintf('Experiment %s do not exist', $experiment->getName()));
         }
 
-        $variants = $this->experiments[$experiment->getName()]->getVariants();
-        $this->createVariantAllocation($this->experiments[$experiment->getName()]);
+        $registeredExperiment = $this->experiments[$experiment->getName()];
+        if ($registeredExperiment->getVariants() === []) {
+            throw new LogicalException(sprintf('Experiment %s has no variants', $experiment->getName()));
+        }
+
+        $this->createVariantAllocation($registeredExperiment);
 
         return $this->allocations[$experiment->getName()][$this->getUserIdentifierAffectation($experiment->getName(), $userIdentifier)];
     }

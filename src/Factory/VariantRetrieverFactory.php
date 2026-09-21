@@ -13,11 +13,11 @@ final class VariantRetrieverFactory
     {
         $variantRetriever = new VariantRetriever();
         foreach (call_user_func_array('array_merge', $experiments) as $experimentName => $variants) {
-                $experimentVariants = [];
-                foreach (call_user_func_array('array_merge', $variants) as $variantName => $variantRollout) {
-                    $experimentVariants[] = new Variant($variantName, $variantRollout);
-                }
-                $variantRetriever->addExperiment(new Experiment($experimentName, ...$experimentVariants));
+            $experimentVariants = [];
+            foreach (call_user_func_array('array_merge', $variants) as $variantName => $variantRollout) {
+                $experimentVariants[] = new Variant($variantName, $variantRollout);
+            }
+            $variantRetriever->addExperiment(new Experiment($experimentName, ...$experimentVariants));
         }
         return $variantRetriever;
     }
