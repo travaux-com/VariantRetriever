@@ -15,6 +15,7 @@ class VariantRetriever implements VariantRetrieverInterface
     public function addExperiment(Experiment $experiment): self
     {
         $this->experiments[$experiment->getName()] = $experiment;
+        $this->createVariantAllocation($experiment);
 
         return $this;
     }
@@ -29,8 +30,6 @@ class VariantRetriever implements VariantRetrieverInterface
         if ($registeredExperiment->getVariants() === []) {
             throw new LogicalException(sprintf('Experiment %s has no variants', $experiment->getName()));
         }
-
-        $this->createVariantAllocation($registeredExperiment);
 
         return $this->allocations[$experiment->getName()][$this->getUserIdentifierAffectation($experiment->getName(), $userIdentifier)];
     }
