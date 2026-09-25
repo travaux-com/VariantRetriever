@@ -2,6 +2,8 @@
 
 namespace Travaux\VariantRetriever\ValueObject;
 
+use Travaux\VariantRetriever\Exception\LogicalException;
+
 class Variant
 {
     private string $name;
@@ -10,6 +12,10 @@ class Variant
 
     public function __construct(string $name, int $rollout = 50)
     {
+        if ($rollout < 0 || $rollout > 100) {
+            throw new LogicalException(sprintf('Variant rollout must be between 0 and 100, got %d', $rollout));
+        }
+
         $this->name = $name;
         $this->rollout = $rollout;
     }

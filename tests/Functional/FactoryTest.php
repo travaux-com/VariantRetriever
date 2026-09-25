@@ -73,4 +73,13 @@ class FactoryTest extends TestCase
         $variantRetriever = (new VariantRetrieverFactory())->createVariantRetriever([]);
         $variantRetriever->getVariantForExperiment(new Experiment(self::DEFAULT_EXPERIMENT_NAME), 'user-1');
     }
+
+    public function testFactoryWithoutArgumentsCannotRetrieveAnExperiment(): void
+    {
+        $this->expectException(LogicalException::class);
+        $this->expectExceptionMessage('Experiment my-ab-test do not exist');
+
+        $variantRetriever = (new VariantRetrieverFactory())->createVariantRetriever();
+        $variantRetriever->getVariantForExperiment(new Experiment(self::DEFAULT_EXPERIMENT_NAME), 'user-1');
+    }
 }

@@ -12,13 +12,22 @@ final class VariantRetrieverFactory
     public function createVariantRetriever(array ...$experiments): VariantRetrieverInterface
     {
         $variantRetriever = new VariantRetriever();
-        foreach (call_user_func_array('array_merge', $experiments) as $experimentName => $variants) {
+        foreach ($this->mergeConfigurations($experiments) as $experimentName => $variants) {
             $experimentVariants = [];
-            foreach (call_user_func_array('array_merge', $variants) as $variantName => $variantRollout) {
+            foreach ($this->mergeConfigurations(array_values($variants)) as $variantName => $variantRollout) {
                 $experimentVariants[] = new Variant($variantName, $variantRollout);
             }
             $variantRetriever->addExperiment(new Experiment($experimentName, ...$experimentVariants));
         }
         return $variantRetriever;
+    }
+
+    private function mergeConfigurations(array $configurations): array
+    {
+        if ($configurations === []) {
+            return [];
+        }
+
+        return array_merge(...$configurations);
     }
 }
