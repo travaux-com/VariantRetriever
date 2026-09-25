@@ -26,15 +26,46 @@ class VariantTest extends TestCase
         $this->generateVariantRetriever()->getVariantForExperiment(new Experiment('unknown'), 'user-1');
     }
 
-    public function testEmptyExperimentShouldThrowExceptionWhenRetrievingVariant(): void
+    public function testEmptyExperimentShouldThrowExceptionWhenRegistered(): void
     {
         $this->expectException(LogicalException::class);
         $this->expectExceptionMessage('Experiment empty-exp has no variants');
 
         $variantRetriever = new VariantRetriever();
         $variantRetriever->addExperiment(new Experiment('empty-exp'));
+    }
 
-        $variantRetriever->getVariantForExperiment(new Experiment('empty-exp'), 'user-1');
+    public function testNegativeRolloutShouldThrowException(): void
+    {
+        $this->expectException(LogicalException::class);
+        $this->expectExceptionMessage('Variant rollout must be between 0 and 100, got -10');
+
+        new Variant('control', -10);
+    }
+
+    public function testRolloutAboveOneHundredShouldThrowException(): void
+    {
+        $this->expectException(LogicalException::class);
+        $this->expectExceptionMessage('Variant rollout must be between 0 and 100, got 101');
+
+        new Variant('on', 101);
+    }
+
+    public function testZeroRolloutVariantIsAcceptedWhenExperimentReachesOneHundred(): void
+    {
+        $variantRetriever = new VariantRetriever();
+        $variantRetriever->addExperiment(new Experiment('kill-switch', new Variant('off', 0), new Variant('on', 100)));
+
+        $this->assertEquals('on', (string) $variantRetriever->getVariantForExperiment(new Experiment('kill-switch'), 'user-1'));
+    }
+
+    public function testAddingTheSameExperimentTwiceShouldThrowException(): void
+    {
+        $this->expectException(LogicalException::class);
+        $this->expectExceptionMessage('Experiment my-ab-test already exist');
+
+        $variantRetriever = $this->generateVariantRetriever();
+        $variantRetriever->addExperiment(new Experiment(self::DEFAULT_EXPERIMENT_NAME, new Variant('control'), new Variant('variant')));
     }
 
     public function testSingleVariantAtFullRolloutAlwaysReturnsThatVariant(): void
