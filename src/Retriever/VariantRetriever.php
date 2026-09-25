@@ -8,12 +8,20 @@ use Travaux\VariantRetriever\ValueObject\Variant;
 
 class VariantRetriever implements VariantRetrieverInterface
 {
-    private array $experiments;
+    private array $experiments = [];
 
     private array $allocations = [];
 
     public function addExperiment(Experiment $experiment): self
     {
+        if (isset($this->experiments[$experiment->getName()])) {
+            throw new LogicalException(sprintf('Experiment %s already exist', $experiment->getName()));
+        }
+
+        if ($experiment->getVariants() === []) {
+            throw new LogicalException(sprintf('Experiment %s has no variants', $experiment->getName()));
+        }
+
         $this->experiments[$experiment->getName()] = $experiment;
 
         return $this;
